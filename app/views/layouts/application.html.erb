@@ -49,10 +49,10 @@
                       |
                     } do %>
                     <%= icon "cog-6-tooth", variant: :outline, size: 18 %>
-                    Settings
+                    <%= t('.settings') %>
                   <% end %>
                 </li>
-                <li><%= link_to logout_path, data: { turbo: false } do %><%= icon "arrow-right-start-on-rectangle", variant: :outline, size: 18 %>Logout<% end %></li>
+                <li><%= link_to logout_path, data: { turbo: false } do %><%= icon "arrow-right-start-on-rectangle", variant: :outline, size: 18 %><%= t('.logout') %><% end %></li>
               </menu>
             </div>
           </footer>

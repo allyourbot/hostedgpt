@@ -70,7 +70,7 @@ class Document < ApplicationRecord
   end
 
   def file_present
-    errors.add(:file, "must be attached") unless file.attached?
+    errors.add(:file) unless file.attached?
   end
 
   def wait_for_file_variant_to_process!(variant)

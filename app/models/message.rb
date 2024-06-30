@@ -49,11 +49,11 @@ class Message < ApplicationRecord
   end
 
   def validate_conversation
-    errors.add(:conversation, 'is invalid') unless conversation.user == Current.user
+    errors.add(:conversation) unless conversation.user == Current.user
   end
 
   def validate_assistant
-    errors.add(:assistant, 'is invalid') unless assistant.user == Current.user
+    errors.add(:assistant) unless assistant.user == Current.user
   end
 
   def start_assistant_reply

@@ -1,0 +1,13 @@
+de:
+  users:
+    new:
+      create_your_account: Erstelle deinen Account
+      signup_with_google: Mit Google anmelden
+      or: oder
+      email: E-Mail
+      password: Passwort
+      fullname: Voller Name
+      first_and_lastname: Vor- und Nachname
+      signup: Registrieren
+      already_have_an_account: Account schon vorhanden?
+      login: Anmelden

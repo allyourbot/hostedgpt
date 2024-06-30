@@ -1,7 +1,7 @@
-<h1 class="text-3xl">Language Models</h1>
+<h1 class="text-3xl"><%= t('.language_models') %></h1>
 
 <p class="my-8">
-  <%= link_to "Add New",
+  <%= link_to t('.add_new'),
     new_settings_language_model_path,
     class: %| inline-block font-bold
       bg-gray-200 dark:bg-gray-900
@@ -14,9 +14,9 @@
 <table id="language-models" class="w-full table-auto border-b border-gray-300">
   <thead>
     <tr class="bg-gray-200">
-      <th>Name</th>
-      <th>Description</th>
-      <th>API Service</th>
+      <th><%= t('.name') %></th>
+      <th><%= t('.description') %></th>
+      <th><%= t('.api_service') %></th>
     </tr>
   </thead>
 

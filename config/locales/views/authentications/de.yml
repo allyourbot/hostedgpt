@@ -1,0 +1,10 @@
+de:
+  authentications:
+    new:
+      welcome_back: Willkommen zurück!
+      dont_have_an_account: Noch kein Konto?
+      sign_up: Anmelden
+      login_with_google: Mit Google anmelden
+      email_address: Email Adresse
+      password: Passwort
+      login: Anmelden

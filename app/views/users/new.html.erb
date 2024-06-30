@@ -2,7 +2,7 @@
   <div class="p-3 bg-white border border-gray-100 rounded-full">
     <%= image_tag("logo.svg", width: "24", height: "24", class: "text-gray-950") %>
   </div>
-  <h2 class='text-3xl font-semibold'>Create your account</h2>
+  <h2 class='text-3xl font-semibold'><%= t('.create_your_account') %></h2>
 
   <% if @person.errors.any? %>
     <div id="error_explanation" class="px-3 py-2 mt-3 font-medium text-red-500 rounded-lg bg-red-50">
@@ -15,7 +15,7 @@
   <% end %>
 
   <% if Feature.google_authentication? %>
-    <%= button_to "Sign Up with Google", "/auth/google",
+    <%= button_to t('.signup_with_google'), "/auth/google",
       method: "post",
       class: %|
         text-white font-medium
@@ -31,7 +31,7 @@
       }
     %>
     <span class="text-sm text-center <%= Feature.disabled?(:password_authentication) && 'hidden' %>">
-      - Or -
+      - <%= t('.or') %> -
     </span>
   <% end %>
 
@@ -48,10 +48,10 @@
       <%= f.hidden_field :personable_type, id: "personable_type", value: "User" %>
 
       <%= f.label :email, class: "input input-bordered flex items-center justify-between" do %>
-        <span>Email <span class="">*</span></span>
+        <span><%= t('.email') %><span class="">*</span></span>
         <%= f.email_field :email,
           autofocus: true,
-          placeholder: "Email",
+          placeholder: t('.email'),
           class: "w-44 border-0 dark:text-black"
         %>
       <% end %>
@@ -60,9 +60,9 @@
         <%= user_fields.fields_for :credentials_attributes, @person.personable.credentials.build, index: "0" do |credential_fields| %>
           <%= credential_fields.hidden_field :type, value: "PasswordCredential" %>
           <%= credential_fields.label :password, class: "input input-bordered flex items-center justify-between" do %>
-            <span>Password <span class="">*</span></span>
+            <span><%= t('.password') %><span class="">*</span></span>
             <%= credential_fields.password_field :password,
-              placeholder: "Password",
+              placeholder: t('.password'),
               class: "w-44 border-0 dark:text-black",
               data: { action: "focus->transition#toggleClassOn" }
             %>
@@ -80,15 +80,15 @@
         >
 
           <%= user_fields.label :name, class: "input input-bordered flex items-center justify-between" do %>
-            <span>Full Name <span class="">*</span></span>
+            <span><%= t('.fullname') %><span class="">*</span></span>
             <%= user_fields.text_field :name,
-              placeholder: "First & Last name",
+              placeholder: t('.first_and_lastname'),
               class: "w-44 border-0 dark:text-black"
             %>
           <% end %>
         </div>
       <% end %>
-      <%= f.submit "Sign Up",
+      <%= f.submit t('.signup'),
         class: %|
           text-white font-medium
           bg-brand-blue dark:bg-gray-900
@@ -103,7 +103,7 @@
   <% end %>
 
   <span class="text-sm text-center">
-    Already have an account?
-    <%= link_to "Log in", login_path, class: "underline" %>
+    <%= t('.already_have_an_account') %>
+    <%= link_to t('.login'), login_path, class: "underline" %>
   </span>
 </div>

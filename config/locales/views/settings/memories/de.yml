@@ -1,0 +1,9 @@
+de:
+  settings:
+    memories:
+      index:
+        assistent_memories: Erinnerungen der Assistenten
+        explanation: Bestimmte Dinge werden von den vergangenen Konversationen erinnert. Alle Assistenten teilen sich diese Erinnerungen.
+        are_you_sure: Bist du dir sicher?
+        no_memories: Keine Erinnerungen
+        clear_all_memories: Alle Erinnerungen löschen

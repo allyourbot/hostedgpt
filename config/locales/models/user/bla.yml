@@ -1,0 +1,9 @@
+de:
+  activerecord:
+    attributes:
+      user:
+        email: E-Mail
+        first_name: Vorname
+        last_name: Nachname
+        password: Passwort
+        dark_mode: Color Theme

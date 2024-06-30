@@ -1,15 +1,14 @@
 <div class="mx-auto md:w-2/3 w-full">
-  <h1 class="text-3xl">Assistant Memories</h1>
+  <h1 class="text-3xl"><%= t('.assistent_memories') %></h1>
   <p class="pt-3">
-    These are the things remembered from all past conversations. All assistants
-    share this memory.
+    <%= t('.explanation') %>
   </p>
 
   <p class="py-3">
     <% if @memories.length == 0 %>
-      <span class="font-bold">No memories</span>
+      <span class="font-bold"><%= t('.no_memories') %></span>
     <% else %>
-      <%= button_to 'Clear All Memories',
+      <%= button_to t('.clear_all_memories'),
         settings_memories_path,
         form_class: "pb-3",
         class: %|
@@ -20,7 +19,7 @@
           cursor-pointer
         |,
         method: :delete,
-        data: { turbo_confirm: 'Are you sure?' }
+        data: { turbo_confirm: t('.are_you_sure') }
       %>
     <% end %>
   </p>

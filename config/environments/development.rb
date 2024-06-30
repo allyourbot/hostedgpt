@@ -65,7 +65,7 @@ Rails.application.configure do
   config.assets.quiet = true
 
   # Raises error for missing translations.
-  # config.i18n.raise_on_missing_translations = true
+  config.i18n.raise_on_missing_translations = true
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
@@ -82,4 +82,7 @@ Rails.application.configure do
   config.web_console.permissions = ["192.168.0.0/16", "172.17.0.0/16"]
 
   config.hosts << ENV["DEV_HOST"] if ENV["DEV_HOST"].present?
+
+  # Uncomment if you want to force a different locale during development
+  config.i18n.default_locale = :de
 end

@@ -4,16 +4,16 @@
     <%= image_tag("logo.svg", width: "24", height: "24", class: "text-gray-950") %>
   </div>
 
-  <h2 class="text-3xl font-semibold">Welcome back</h2>
+  <h2 class="text-3xl font-semibold"><%= t('.welcome_back') %></h2>
 
   <% if Feature.registration? %>
     <span class="text-sm text-center">
-      Don't have an account? <%= link_to "Sign up", register_path, class: "underline" %>
+      <%= t('.dont_have_an_account') %>&nbsp;<%= link_to t('.sign_up'), register_path, class: "underline" %>
     </span>
   <% end %>
 
   <% if Feature.google_authentication? %>
-    <%= button_to "Log In with Google", "/auth/google",
+    <%= button_to t('.login_with_google'), "/auth/google",
       method: "post",
       class: %|
         text-white font-medium
@@ -39,16 +39,16 @@
         value: params[:email],
         id: "email",
         autofocus: params[:email].present? ? false : true,
-        placeholder: "Email address",
+        placeholder: t('.email_address'),
         class: "border border-gray-400 rounded p-3 dark:text-black"
       %>
       <%= f.password_field :password,
         id: "password",
         autofocus: params[:email].present? ? true : false,
-        placeholder: "Password",
+        placeholder: t('.password'),
         class: "border border-gray-400 rounded p-3 dark:text-black"
       %>
-      <%= f.submit "Log In",
+      <%= f.submit t('.login'),
           class: %|
             text-white font-medium
             bg-brand-blue dark:bg-gray-900

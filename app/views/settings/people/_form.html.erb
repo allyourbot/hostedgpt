@@ -42,7 +42,7 @@
     <% end %>
 
     <div class="my-5" data-controller="transition" data-transition-toggle-class="hidden">
-      <%= user_fields.label :dark_mode, "Color Theme" %>
+      <%= user_fields.label :dark_mode %>
       <div class="flex items-center justify-between outline-none pl-3 py-2 mt-2 w-full dark:text-black gap-1">
         <%= user_fields.fields_for :preferences do |preferences_fields| %>
           <% %w(dark light system).each do |value| %>
@@ -57,17 +57,17 @@
 
     <% if Feature.google_tools? %>
       <div class="my-5" data-controller="transition" data-transition-toggle-class="hidden">
-        <%= user_fields.label "Enable Tools for Assistants", "Enable Tools for Assistants" %>
+        <%= user_fields.label t('.enable_tools_for_assistants') %>
 
         <div class="flex items-center justify-between outline-none py-2 mt-2 w-full dark:text-black gap-1">
           <div class="dark:text-gray-400 border-l-4 border-gray-100 dark:border-gray-600 pl-5 pr-1">
-            Enable <span class="font-semibold">Gmail</span><br>
-            Trouble? <%= link_to "Delete app connection", "https://myaccount.google.com/connections", target: "_blank", class: "underline" %>
+            <%= t('.enable') %>&nbsp;<span class="font-semibold">Gmail</span><br>
+            <%= t('.trouble') %>&nbsp;<%= link_to t('.delete_app_connection'), "https://myaccount.google.com/connections", target: "_blank", class: "underline" %>
           </div>
           <% if Current.user.gmail_credential %>
-            <div class="text-green-700 font-bold">Enabled</div>
+            <div class="text-green-700 font-bold"><%= t('.enabled') %></div>
           <% else %>
-            <%= form.label :authorize_gmail, "Authorized Gmail",
+            <%= form.label :authorize_gmail, t('.authorize_gmail'),
               class: %|
                 inline-block font-medium
                 bg-gray-100 dark:bg-gray-900 dark:text-white
@@ -81,13 +81,13 @@
 
         <div class="flex items-center justify-between outline-none py-2 mt-2 w-full dark:text-black gap-1">
           <div class="dark:text-gray-400 border-l-4 border-gray-100 dark:border-gray-600 pl-5 pr-1">
-            Enable <span class="font-semibold">Google Tasks</span><br>
-            Trouble? <%= link_to "Delete connection", "https://myaccount.google.com/connections", target: "_blank", class: "underline" %>
+            <%= t('.enable') %>&nbsp;<span class="font-semibold">Google Tasks</span><br>
+            <%= t('.trouble') %>&nbsp;<%= link_to t('.delete_app_connection'), "https://myaccount.google.com/connections", target: "_blank", class: "underline" %>
           </div>
           <% if Current.user.google_tasks_credential %>
-            <div class="text-green-700 font-bold">Enabled</div>
+            <div class="text-green-700 font-bold"><%= t('.enabled') %></div>
           <% else %>
-            <%= form.label :authorize_google_tasks, "Authorized Google Tasks",
+            <%= form.label :authorize_google_tasks, t('.authorize_google_tasks'),
               class: %|
                 inline-block font-medium
                 bg-gray-100 dark:bg-gray-900 dark:text-white
@@ -105,7 +105,7 @@
   <% end %>
 
   <div class="inline">
-    <%= form.submit "Save",
+    <%= form.submit t('.save'),
       class: %|
         inline-block font-bold
         bg-gray-200 dark:bg-gray-900
@@ -113,9 +113,9 @@
         rounded-lg py-3 px-5
         cursor-pointer
       |,
-      data: { turbo_submits_with: "Saving..." }
+      data: { turbo_submits_with: t('.saving') }
     %>
-    <%= link_to "Cancel", root_path, class: "float-right inline-block ml-5 py-3" %>
+    <%= link_to t('.cancel'), root_path, class: "float-right inline-block ml-5 py-3" %>
   </div>
 <% end # form %>
 

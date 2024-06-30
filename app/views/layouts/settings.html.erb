@@ -1,4 +1,4 @@
-<% content_for :title, "Settings — HostedGPT" %>
+<% content_for :title, "#{t('.settings')} — HostedGPT" %>
 <% content_for :nav_column do %>
   <header class="pl-2 py-7 text-3xl relative">
     <%= link_to root_path, class: "inline-block cursor-pointer py-1 pt-0 align-middle" do %>
@@ -13,7 +13,7 @@
             tooltip: :bottom
       %>
     <% end %>
-    Settings
+    <%= t('.settings') %>
   </header>
   <section id="menu" data-controller="radio-behavior" data-radio-behavior-selected-class="relationship">
     <% @settings_menu.each do |controller, settings_items| %>
@@ -41,7 +41,7 @@
               stroke-2
               text-zinc-600 group-hover:text-zinc-900 dark:text-zinc-400 dark:group-hover:text-white
             |,
-            title: "Close",
+            title: t('.close'),
             tooltip: :left
       %>
     <% end %>

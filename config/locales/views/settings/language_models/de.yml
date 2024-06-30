@@ -1,0 +1,9 @@
+de:
+  settings:
+    language_models:
+      index:
+        language_models: Sprachmodelle
+        add_new: Hinzufügen
+        name: Name
+        description: Beschreibung
+        api_service: API Anbieter

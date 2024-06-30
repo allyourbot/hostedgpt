@@ -30,7 +30,14 @@ class Conversation < ApplicationRecord
   def self.grouped_by_increasing_time_interval_for_user(user)
     nav_conversations = user.conversations.ordered
 
-    keys = ["Today", "Yesterday", "This Week", "This Month", "Last Month", "Older"]
+    keys = [
+      I18n.t('models.conversation.groupings.today'),
+      I18n.t('models.conversation.groupings.yesterday'),
+      I18n.t('models.conversation.groupings.this_week'),
+      I18n.t('models.conversation.groupings.this_month'),
+      I18n.t('models.conversation.groupings.last_month'),
+      I18n.t('models.conversation.groupings.older'),
+    ]
     values = [
       nil,
       Date.current.beginning_of_day,

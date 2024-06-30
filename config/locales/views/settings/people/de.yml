@@ -1,0 +1,16 @@
+de:
+  settings:
+    people:
+      form:
+        save: Speichern
+        cancel: Abbrechen
+        enable: "Einrichten:"
+        trouble: Probleme?
+        enabled: Eingerichtet
+        enable_tools_for_assistants: Tools für Assistenten einrichten
+        authorize_gmail: Gmail authorisieren
+        authorize_google_tasks: Google Tasks authorisieren
+        delete_app_connection: Verbindung löschen
+        saving: Speichern...
+      edit:
+        your_account: Dein Konto

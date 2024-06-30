@@ -1,0 +1,10 @@
+en:
+  models:
+    conversation:
+      groupings:
+        today: Today
+        yesterday: Yesterday
+        this_week: This Week
+        this_month: This Month
+        last_month: Last Month
+        older: Older

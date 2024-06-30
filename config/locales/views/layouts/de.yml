@@ -1,0 +1,8 @@
+de:
+  layouts:
+    application:
+      settings: Einstellungen
+      logout: Ausloggen
+    settings:
+      settings: Einstellungen
+      close: Schließen
