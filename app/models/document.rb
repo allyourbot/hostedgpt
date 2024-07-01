@@ -19,6 +19,26 @@ class Document < ApplicationRecord
   validates :purpose, :filename, :bytes, presence: true
   validate :file_present
 
+  def has_image?(variant = nil)
+    if file.attached? && variant
+      !!has_file_variant_processed?(variant)
+    else
+      false
+    end
+  end
+
+  def image_path(variant, fallback: nil)
+    return nil unless has_image?
+
+    if has_file_variant_processed?(variant)
+      fully_processed_url(variant)
+    elsif fallback.nil?
+      redirect_to_processed_path(variant)
+    else
+      fallback
+    end
+  end
+
   def file_data_url(variant = :large)
     return nil if !file.attached?
 
