@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     end
   end
 
+  post "whatsapp/create" => "whatsapp#create"
+
   get "/login", to: "authentications#new"
   post "/login", to: "authentications#create"
   get "/register", to: "users#new"
