@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class GetNextAIMessageJob < ApplicationJob
   class ResponseCancelled < StandardError; end
   class WaitForPrevious < StandardError; end
@@ -179,6 +181,7 @@ class GetNextAIMessageJob < ApplicationJob
     end
 
     index = @message.index
+    url_of_dalle_generated_image = nil
     msgs.each do |tool_message| # one message for each tool executed
       @conversation.messages.create!(
         assistant: @assistant,
@@ -189,6 +192,13 @@ class GetNextAIMessageJob < ApplicationJob
         index: index += 1,
         processed_at: Time.current,
       )
+
+      content_hash = JSON.parse(tool_message[:content])
+
+      if content_hash.has_key?('url_of_dalle_generated_image')
+        url_of_dalle_generated_image = content_hash['url_of_dalle_generated_image']
+      end
+
     end
 
     assistant_reply = @conversation.messages.create!(
@@ -198,6 +208,12 @@ class GetNextAIMessageJob < ApplicationJob
       version: @message.version,
       index: index += 1
     )
+
+    unless url_of_dalle_generated_image.nil?
+      d = Document.new
+      d.file.attach(io: URI.open(url_of_dalle_generated_image), filename: 'image.png')
+      assistant_reply.documents << d
+    end
 
     GetNextAIMessageJob.perform_later(
       @user.id,
