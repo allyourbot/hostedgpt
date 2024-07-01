@@ -130,8 +130,15 @@
       </div>
 
       <div id="composer"
-            class="<%= @assistant.deleted? && 'hidden' %> flex-1 pl-6 pr-6 w-full md:max-w-none lg:max-w-[700px] xl:max-w-[810px] mx-auto relative leading-relaxed <%= !@assistant.supports_images? && 'relationship' %>"
-            data-controller="composer image-upload"
+        class="
+          <%= @assistant.deleted? && 'hidden' %>
+          <%= !@assistant.supports_images? && 'relationship' %>
+          flex-1 relative
+          leading-relaxed
+          pl-6 pr-6 mx-auto mb-6
+          w-full md:max-w-none lg:max-w-[700px] xl:max-w-[810px]
+        "
+        data-controller="composer image-upload"
       >
         <%= button_tag type: "button",
               id: "attach-button",
@@ -245,6 +252,7 @@
             id: "composer-input",
             placeholder: "RETURN to submit   ↑ to edit last message",
             data: {
+              turbo_permanent: true,
               composer_target: "input",
               image_upload_target: "content",
               application_target: "newMessageField",
@@ -397,10 +405,6 @@
           </div>
 
         <% end %>
-      </div>
-
-      <div class="w-full mb-2 text-xs text-center text-gray-400 dark:text-gray-300">
-        <span>&nbsp;</span> <!-- the data-turbo-permanent causes height of page to be calculated incorrectly, adding this span fixes it -->
       </div>
   </footer>
 </turbo-frame>
