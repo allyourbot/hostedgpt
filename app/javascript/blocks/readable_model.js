@@ -80,7 +80,7 @@ export default class {
         {
           const $ = this.attributes;
           ${this._callableMethodsExceptUppercase.map(func => 'const '+func+' = this.'+func+'.bind(this);').join("\n")}
-          ${this._getterMethods.map(func => 'const '+func+' = (v) => { return (typeof v == "undefined") ? Object.getOwnPropertyDescriptor(Object.getPrototypeOf(this), "'+func+'").get() : Object.getOwnPropertyDescriptor(Object.getPrototypeOf(this), "'+func+'").set(v); };').join("\n")}
+          ${this._getterMethods.map(func => 'const ' + func + ' = (v) => { return (typeof v == "undefined") ? this.'+func+' : this.'+func+' = v };').join("\n")}
           this._methodLog('${func}', arguments, this.${func}.length);
 
           ${methodBody}
@@ -103,7 +103,7 @@ export default class {
           {
             const $ = this.attributes;
             ${this._callableMethodsExceptUppercase.map(func => 'const '+func+' = this.'+func+'.bind(this);').join("\n")}
-            ${this._getterMethods.map(func => 'const '+func+' = (v) => { return (typeof v == "undefined") ? Object.getOwnPropertyDescriptor(Object.getPrototypeOf(this), "'+func+'").get() : Object.getOwnPropertyDescriptor(Object.getPrototypeOf(this), "'+func+'").set(v); };').join("\n")}
+            ${this._getterMethods.map(func => 'const '+func+' = (v) => { return (typeof v == "undefined") ? this.'+func+' : this.'+func+' = v };').join("\n")}
             this._methodLog('${func}', [], 0)
 
             ${methodBody}
@@ -125,7 +125,7 @@ export default class {
           {
             const $ = this.attributes;
             ${this._callableMethodsExceptUppercase.map(func => 'const '+func+' = this.'+func+'.bind(this);').join("\n")}
-            ${this._getterMethods.map(func => 'const '+func+' = (v) => { return (typeof v == "undefined") ? Object.getOwnPropertyDescriptor(Object.getPrototypeOf(this), "'+func+'").get() : Object.getOwnPropertyDescriptor(Object.getPrototypeOf(this), "'+func+'").set(v); };').join("\n")}
+            ${this._getterMethods.map(func => 'const ' + func + ' = (v) => { return (typeof v == "undefined") ? this.'+func+' : this.'+func+' = v };').join("\n")}
             this._methodLog('${func}', [${arg}], 1);
 
             ${methodBody}

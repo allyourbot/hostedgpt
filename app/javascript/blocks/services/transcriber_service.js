@@ -2,7 +2,6 @@ import Service from "../service.js"
 
 export default class extends Service {
   logLevel_info
-  attrAccessor_onTextReceived
   attrReader_listening
 
   new() {
@@ -120,6 +119,6 @@ export default class extends Service {
 
     if (transcript.length <= 1) return
 
-    $.onTextReceived(transcript)
+    SpeakTo.Transcriber.with.words(transcript)
   }
 }

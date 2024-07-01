@@ -13,6 +13,7 @@ import Interface from "../interface.js"
 
 export default class extends Interface {
   logLevel_info
+  attrReader_covered
 
   async Flip(turnOn)    { if (turnOn && !$.active) {
                             $.active = true
@@ -33,18 +34,17 @@ export default class extends Interface {
                         }
 
   log_SpeakTo
-  SpeakTo(text)         { $.words += text+' '
+  SpeakTo(text)         { if ($.covered) return
+                          $.words += text+' '
+                          $.silenceService.restartCounter()
                           $.dismissPoller?.end()
                           _shortWaitThenTell()
                         }
 
   Cover()               { $.covered = true }
-  Uncover()             { $.transcriberService.restart()
-                          $.covered = false
-                          Play.Speaker.sound('pop', () => {
-                            Loop.Speaker.every(8, 'typing1')
-                            _longWaitThenDismis()
-                          })
+  Uncover()             { $.covered = false
+                          $.transcriberService.restart()
+                          _longWaitThenDismis()
                         }
 
   attr_words            = ''
@@ -57,19 +57,15 @@ export default class extends Interface {
 
   new() {
     $.covered = false
+    $.silenceService = new SilenceService
     $.transcriberService = new TranscriberService
-    $.transcriberService.onTextReceived = (text) => {
-      if ($.covered) return
-      $.silenceService.restartCounter()
-      SpeakTo.Transcriber.with.words(text)
-    }
-    $.silenceService = new SilenceService()
   }
 
   _shortWaitThenTell()  { if (!$.tellPoller?.handler) $.tellPoller = runEvery(0.2, () => {
                             if ($.silenceService.msOfSilence <= 1000) return
                             log('enough silence to start processing...')
 
+                            if (! $.covered) $.covered = true
                             Tell.Listener.to.consider($.words)
 
                             $.words = ''

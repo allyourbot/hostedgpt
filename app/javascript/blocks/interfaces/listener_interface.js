@@ -9,23 +9,16 @@ export default class extends Interface {
   logLevel_info
 
   log_Tell
-  async Tell(words)   { if (this.engaged && _intendedDismiss(words)) {
-                          await Dismiss.Listener()
+  async Tell(words)   { if (await _dismissIfNeeded(words)) return
+                        words = await _invokeIfNeeded(words)
+                        if (!$.processing) {
+                          Uncover.Transcriber()
                           return
                         }
-                        if (_intendedInvoke(words)) {
-                          await Invoke.Listener()
-                          words = _removeSpeechBeforeName(words)
-                        }
-                        if (!$.processing) return // Invoke() did not succeed
-
-                        if (_referencingTheScreen(words))
-                          $.attachment = await $.screenService.takeScreenshot()
-                        else
-                          $.attachment = null
 
                         $.consideration = words
-                        _startThinking()
+                        $.attachment    = await _takeScreenshotIfNeeded(words)
+                        _playThinkingSounds()
                       }
   log_Invoke
   async Invoke()      { if (!$.processing) {
@@ -64,24 +57,29 @@ export default class extends Interface {
     $.screenService = new ScreenService
   }
 
+  async _dismissIfNeeded(words) {
+    if (!engaged() || ! _intendedDismiss(words)) return false
+
+    await Dismiss.Listener()
+    Uncover.Transcriber()
+    return true
+  }
+
   _intendedDismiss(words) {
     return words.downcase().includeAny(["hold on", "hold up", "one sec", "one second", "stop", "on a call"]) &&
-           words.downcase().includeAny(["samantha"])
+      words.downcase().includeAny(["samantha"])
+  }
+
+  async _invokeIfNeeded(words) {
+    if (! _intendedInvoke(words)) return words
+
+    await Invoke.Listener()
+    return _removeSpeechBeforeName(words)
   }
 
   _intendedInvoke(words) {
     return words.downcase().includeAny(["samantha", "i'm back", "i am back", "i'm here"]) &&
-           words.downcase().includeAny(["samantha"]) //TODO; let's recognize these phrases without "samantha" and simply reply with "are you talking to me?"
-  }
-
-  _referencingTheScreen(words) {
-    return words.downcase().includeAny(["can you see", "you can see", "do you see", "look at", "this", "my screen", "the screen"])
-  }
-
-  _startThinking() {
-    Play.Speaker.sound('jeep', () => {
-      Loop.Speaker.every(4, 'thinking')
-    })
+      words.downcase().includeAny(["samantha"]) //TODO; let's recognize these phrases without "samantha" and simply reply with "are you talking to me?"
   }
 
   _removeSpeechBeforeName(words) {
@@ -89,5 +87,21 @@ export default class extends Interface {
       return words.slice(words.downcase().indexOf("samantha"))
     else
       return words
+  }
+
+  async _takeScreenshotIfNeeded(words) {
+    if (! _referencingTheScreen(words)) return null
+
+    return await $.screenService.takeScreenshot()
+  }
+
+  _referencingTheScreen(words) {
+    return words.downcase().includeAny(["can you see", "you can see", "do you see", "look at", "this", "my screen", "the screen"])
+  }
+
+  _playThinkingSounds() {
+    Play.Speaker.sound('jeep', () => {
+      Loop.Speaker.every(4, 'thinking')
+    })
   }
 }
